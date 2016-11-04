@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "XMLElement.h"
+#include "PerlinNoise.h"
 
 using namespace std;
 
@@ -19,7 +20,13 @@ int main()
 
     e.addChild(e2);
 
-    cout << e.toString();
+    cout << e.toString() << endl;
+    PerlinNoise gen = PerlinNoise();
+
+    for(double i = 0; i < 200 ; i++)
+    {
+        cout << gen.noise(i/10,i/100,0) << " ";
+    }
 
     return 0;
 }
