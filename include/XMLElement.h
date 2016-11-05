@@ -15,6 +15,10 @@ class XMLElement
         void setValue(std::string&);
         std::string toString();
 
+        std::string getName(){return *_name;}
+
+        XMLElement* getChildByName(std::string&);
+
     protected:
 
     private:

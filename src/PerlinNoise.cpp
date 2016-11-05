@@ -3,12 +3,6 @@
 #include <random>
 #include <algorithm>
 
-// THIS IS A DIRECT TRANSLATION TO C++11 FROM THE REFERENCE
-// JAVA IMPLEMENTATION OF THE IMPROVED PERLIN FUNCTION (see http://mrl.nyu.edu/~perlin/noise/)
-// THE ORIGINAL JAVA IMPLEMENTATION IS COPYRIGHT 2002 KEN PERLIN
-
-// I ADDED AN EXTRA METHOD THAT GENERATES A NEW PERMUTATION VECTOR (THIS IS NOT PRESENT IN THE ORIGINAL IMPLEMENTATION)
-
 // Initialize with the reference values for the permutation vector
 PerlinNoise::PerlinNoise() {
 
