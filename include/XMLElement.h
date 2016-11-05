@@ -10,7 +10,7 @@ class XMLElement
 
         XMLElement(std::string &);
         virtual ~XMLElement();
-        void addChild(XMLElement&);
+        void addChild(XMLElement*);
         void addAttribute(std::string&);
         void setValue(std::string&);
         std::string toString();

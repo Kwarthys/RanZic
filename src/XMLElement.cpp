@@ -55,9 +55,9 @@ std::string XMLElement::toString()
     return ret;
 }
 
-void XMLElement::addChild(XMLElement& e )
+void XMLElement::addChild(XMLElement* e )
 {
-    _childs.push_back(new XMLElement(e));
+    _childs.push_back(e);
 }
 
 void XMLElement::addAttribute(std::string& s )

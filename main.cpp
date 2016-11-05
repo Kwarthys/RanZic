@@ -29,11 +29,11 @@ int main()
     std::string  attr = "Premier=\"1\"", at2 = "id=\"id2\"";
     e.addAttribute(attr); e2.addAttribute(at2);
 
-    e.addChild(e2);
+    e.addChild(&e2);
 
-    e2.addChild(e3);
+    e2.addChild(&e3);
 
-    e.addChild(*(note.getDescriptor()));
+    e.addChild(note.getDescriptor());
 
 
     cout << e.toString() << endl;
@@ -43,7 +43,6 @@ int main()
 
 /*
     PerlinNoise gen = PerlinNoise();
-
     for(double i = 0; i < 200 ; i++)
     {
         cout << gen.noise(i/10,i/100,0) << " ";
