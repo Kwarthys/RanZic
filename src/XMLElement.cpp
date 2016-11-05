@@ -30,10 +30,15 @@ XMLElement * XMLElement::getChildByName(std::string& wanted)
     return ret;
 }
 
-std::string XMLElement::toString()
+std::string XMLElement::toString(unsigned int offset)
 {
-    std::string ret = "";
-    ret += "<" + *_name + " ";
+    std::string indent = "", ret = "";
+    for(unsigned o = 0; o < offset; o++)
+    {
+        indent += "    ";
+    }
+
+    ret += indent + "<" + *_name + " ";
     for(unsigned int i = 0; i < _attributes.size(); i++)
     {
         ret += *(_attributes.at(i)) + " ";
@@ -47,8 +52,8 @@ std::string XMLElement::toString()
 
     for(unsigned int i = 0; i < _childs.size(); i++)
     {
-        ret += "\r\n" + (_childs.at(i))->toString();
-        if(i == _childs.size()-1)ret+= "\r\n";
+        ret += "\r\n" + (_childs.at(i))->toString(offset+1);
+        if(i == _childs.size()-1)ret+= "\r\n" + indent;
     }
 
     ret += "</" + *_name + ">";

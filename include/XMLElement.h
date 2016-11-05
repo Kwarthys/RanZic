@@ -13,7 +13,7 @@ class XMLElement
         void addChild(XMLElement*);
         void addAttribute(std::string&);
         void setValue(std::string&);
-        std::string toString();
+        std::string toString(unsigned int i = 0);
 
         std::string getName(){return *_name;}
 
