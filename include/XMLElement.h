@@ -8,16 +8,16 @@ class XMLElement
 {
     public:
 
-        XMLElement(std::string &);
+        XMLElement(std::string);
         virtual ~XMLElement();
         void addChild(XMLElement*);
-        void addAttribute(std::string&);
-        void setValue(std::string&);
+        void addAttribute(std::string);
+        void setValue(std::string);
         std::string toString(unsigned int i = 0);
 
         std::string getName(){return *_name;}
 
-        XMLElement* getChildByName(std::string&);
+        XMLElement* getChildByName(std::string);
 
     protected:
 

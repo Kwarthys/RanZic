@@ -1,6 +1,6 @@
 #include "XMLElement.h"
 
-XMLElement::XMLElement(std::string & name)
+XMLElement::XMLElement(std::string name)
 {
     //ctor
     _name = new std::string(name);
@@ -12,9 +12,13 @@ XMLElement::XMLElement(std::string & name)
 XMLElement::~XMLElement()
 {
     //dtor
+    for(unsigned int i = 0; i < _childs.size(); i++)
+    {
+        delete(_childs.at(i));
+    }
 }
 
-XMLElement * XMLElement::getChildByName(std::string& wanted)
+XMLElement * XMLElement::getChildByName(std::string wanted)
 {
     XMLElement* ret = nullptr;
 
@@ -65,12 +69,12 @@ void XMLElement::addChild(XMLElement* e )
     _childs.push_back(e);
 }
 
-void XMLElement::addAttribute(std::string& s )
+void XMLElement::addAttribute(std::string s )
 {
     _attributes.push_back(new std::string(s));
 }
 
-void XMLElement::setValue(std::string& s )
+void XMLElement::setValue(std::string s )
 {
     _value = new std::string(s);
 }

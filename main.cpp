@@ -8,45 +8,89 @@ using namespace std;
 
 int main()
 {
-    std::string name = "premier", name2 = "deux", name3 = "waow";
-    XMLElement e = XMLElement(name);
-    XMLElement e2 = XMLElement(name2);
-    XMLElement e3 = XMLElement(name3);
+    std::string idName = "identification", rigthsName = "rights", artistName = "Kwarthys";
+    std::string titleName = "movement-title", title = "Try It";
+    XMLElement* titre = new XMLElement(titleName);
+    titre->setValue(title);
+    XMLElement* id = new XMLElement(idName);
+    XMLElement* owner = new XMLElement(rigthsName);
+    owner->setValue(artistName);
+    id->addChild(owner);
+
+    /*
+    <movement-title>Titre</movement-title>
+    <identification>
+            <rights>Artiste</rights>
+    </identification>
+    */
+
+    std::string midiInstName = "midi-instrument", midiInstAttr = "id=\"P0\"", midiChannelName = "midi-channel";
+    std::string midiBankName = "midi-bank", un = "1", d26 = "26", d80 = "80", d0 = "0";
+    std::string midiProgName = "midi-program", volumeName = "volume", panName = "pan";
+    XMLElement * midiC = new XMLElement(midiChannelName);
+    midiC->setValue(un);
+    XMLElement * midiB = new XMLElement(midiBankName);
+    midiB->setValue(un);
+    XMLElement * midiP = new XMLElement(midiProgName);
+    midiP->setValue(d26);
+    XMLElement * volume = new XMLElement(volumeName);
+    volume->setValue(d80);
+    XMLElement * pan = new XMLElement(panName);
+    pan->setValue(d0);
+    XMLElement * midiInstru = new XMLElement(midiInstName);
+    midiInstru->addAttribute(midiInstAttr);
+    midiInstru->addChild(midiC);midiInstru->addChild(midiB);midiInstru->addChild(midiP);midiInstru->addChild(volume);midiInstru->addChild(pan);
+
+    XMLElement * abrev = new XMLElement("part-abreviation");
+    abrev->setValue("S-GT");
+    XMLElement * partName = new XMLElement("part-name");
+    partName->setValue("Steel Guitar");
+
+    XMLElement * scorePart = new XMLElement("score-part");
+    scorePart->addAttribute("id=\"P0\"");
+    scorePart->addChild(partName);scorePart->addChild(abrev);scorePart->addChild(midiInstru);
+
+    XMLElement * partList = new XMLElement("part-list");
+    partList->addChild(scorePart);
+
+    XMLElement * song = new XMLElement("score-partwise");
+    song->addAttribute("version=\"2.0\"");
+
+    song->addChild(titre);
+    song->addChild(id);
+    song->addChild(partList);
+
+    /*
+    <part-list>
+        <score-part id="P0">
+            <part-name>Steel Guitar</part-name>
+            <part-abbreviation>S-Gt</part-abbreviation>
+            <midi-instrument id="P0">
+                <midi-channel>1</midi-channel>
+                <midi-bank>1</midi-bank>
+                <midi-program>26</midi-program>
+                <volume>80</volume>
+                <pan>0</pan>
+            </midi-instrument>
+        </score-part>
+    </part-list>
+    */
+    cout << song->toString() << endl << endl;
+
 
     cout << "creating Note" << endl << endl;
 
-    Note note = Note();cout << note.getDescriptor()->toString() << endl<< endl;
-    note.setduration(2);cout << note.getDescriptor()->toString() << endl<< endl;
-    note.setOctave(2);cout << note.getDescriptor()->toString() << endl<< endl;
-    note.setFret(2);cout << note.getDescriptor()->toString() << endl<< endl;
-    note.setString(6);cout << note.getDescriptor()->toString() << endl<< endl;
-    note.setStep('F');cout << note.getDescriptor()->toString() << endl<< endl;
+    Note note = Note();
+    note.setduration(2);
+    note.setOctave(2);
+    note.setFret(2);
+    note.setString(6);
+    note.setStep('F');
 
     cout << "End of Note creation" << endl << endl;
 
-    std::string value = "Je suis le premier", value2 = "value2";
-    e.setValue(value);e2.setValue(value2);
-    std::string  attr = "Premier=\"1\"", at2 = "id=\"id2\"";
-    e.addAttribute(attr); e2.addAttribute(at2);
-
-    e.addChild(&e2);
-
-    e2.addChild(&e3);
-
-    e.addChild(note.getDescriptor());
+    cout << note.toString() << endl;
 
 
-    cout << e.toString() << endl;
-
-    XMLElement * recup = e.getChildByName(name3);
-    //cout << recup->toString() << endl;
-
-/*
-    PerlinNoise gen = PerlinNoise();
-    for(double i = 0; i < 200 ; i++)
-    {
-        cout << gen.noise(i/10,i/100,0) << " ";
-    }
-*/
     return 0;
 }

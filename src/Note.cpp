@@ -67,4 +67,5 @@ void Note::setFret(short s)
 Note::~Note()
 {
     //dtor
+    delete(_descriptor);
 }

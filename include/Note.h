@@ -30,6 +30,8 @@ class Note
         void setString(short s);
         void setFret(short s);
 
+        std::string toString(){return _descriptor->toString();}
+
         XMLElement * getDescriptor(){return _descriptor;}
 
     protected:
