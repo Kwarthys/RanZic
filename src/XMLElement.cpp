@@ -9,6 +9,11 @@ XMLElement::XMLElement(std::string name)
     _attributes =  std::vector<std::string*>();
 }
 
+XMLElement::XMLElement(std::string name, std::string value) : XMLElement(name)
+{
+    setValue(value);
+}
+
 XMLElement::~XMLElement()
 {
     //dtor

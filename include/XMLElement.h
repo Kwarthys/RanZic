@@ -9,6 +9,7 @@ class XMLElement
     public:
 
         XMLElement(std::string);
+        XMLElement(std::string, std::string);
         virtual ~XMLElement();
         void addChild(XMLElement*);
         void addAttribute(std::string);

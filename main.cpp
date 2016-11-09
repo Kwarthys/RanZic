@@ -3,6 +3,7 @@
 #include "XMLElement.h"
 #include "PerlinNoise.h"
 #include "Note.h"
+#include "Guitar.h"
 
 using namespace std;
 
@@ -24,34 +25,7 @@ int main()
     </identification>
     */
 
-    std::string midiInstName = "midi-instrument", midiInstAttr = "id=\"P0\"", midiChannelName = "midi-channel";
-    std::string midiBankName = "midi-bank", un = "1", d26 = "26", d80 = "80", d0 = "0";
-    std::string midiProgName = "midi-program", volumeName = "volume", panName = "pan";
-    XMLElement * midiC = new XMLElement(midiChannelName);
-    midiC->setValue(un);
-    XMLElement * midiB = new XMLElement(midiBankName);
-    midiB->setValue(un);
-    XMLElement * midiP = new XMLElement(midiProgName);
-    midiP->setValue(d26);
-    XMLElement * volume = new XMLElement(volumeName);
-    volume->setValue(d80);
-    XMLElement * pan = new XMLElement(panName);
-    pan->setValue(d0);
-    XMLElement * midiInstru = new XMLElement(midiInstName);
-    midiInstru->addAttribute(midiInstAttr);
-    midiInstru->addChild(midiC);midiInstru->addChild(midiB);midiInstru->addChild(midiP);midiInstru->addChild(volume);midiInstru->addChild(pan);
-
-    XMLElement * abrev = new XMLElement("part-abreviation");
-    abrev->setValue("S-GT");
-    XMLElement * partName = new XMLElement("part-name");
-    partName->setValue("Steel Guitar");
-
-    XMLElement * scorePart = new XMLElement("score-part");
-    scorePart->addAttribute("id=\"P0\"");
-    scorePart->addChild(partName);scorePart->addChild(abrev);scorePart->addChild(midiInstru);
-
     XMLElement * partList = new XMLElement("part-list");
-    partList->addChild(scorePart);
 
     XMLElement * song = new XMLElement("score-partwise");
     song->addAttribute("version=\"2.0\"");
@@ -60,9 +34,15 @@ int main()
     song->addChild(id);
     song->addChild(partList);
 
+    Guitar guitar = Guitar();
+    Guitar guitar2 = Guitar();
+
+    partList->addChild(guitar.getDescriptor());
+    partList->addChild(guitar2.getDescriptor());
+
     /*
     <part-list>
-        <score-part id="P0">
+        <score-part id="P0">               <-----------Instrument
             <part-name>Steel Guitar</part-name>
             <part-abbreviation>S-Gt</part-abbreviation>
             <midi-instrument id="P0">
@@ -75,6 +55,10 @@ int main()
         </score-part>
     </part-list>
     */
+    cout << "Guitars created" << endl << endl;
+
+    cout << guitar.getStaffDescriptor()->toString() << endl << endl;
+
     cout << song->toString() << endl << endl;
 
 
