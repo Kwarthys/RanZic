@@ -74,6 +74,18 @@ int main()
 
     part->addChild(measure1->getDescriptor());
 
+    Note * note1 = new Note();
+    note1->setStep('F');
+    note1->setOctave(2);
+    note1->setduration(2);
+    note1->setFret(1);
+    note1->setString(6);
+
+    measure1->getDescriptor()->addChild(note1->getDescriptor());
+    measure1->getDescriptor()->addChild(note1->getDescriptor());
+    measure1->getDescriptor()->addChild(note1->getDescriptor());
+    measure1->getDescriptor()->addChild(note1->getDescriptor());
+
     /*
     <part-list>
         <score-part id="P0">               <-----------Instrument
