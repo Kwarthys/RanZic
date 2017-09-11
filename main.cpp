@@ -19,13 +19,6 @@ int main()
     owner->setValue(artistName);
     id->addChild(owner);
 
-    /*
-    <movement-title>Titre</movement-title>
-    <identification>
-            <rights>Artiste</rights>
-    </identification>
-    */
-
     XMLElement * partList = new XMLElement("part-list");
 
     XMLElement * song = new XMLElement("score-partwise");
@@ -46,7 +39,7 @@ int main()
 
     song->addChild(part);
 
-    Measure * measure1 = new Measure();
+    Measure * measure1 = new Measure(0);
 
     measure1->getDescriptor()->getChildByName("attributes")->addChild(guitar->getStaffDescriptor());
 
@@ -81,31 +74,31 @@ int main()
     note1->setFret(1);
     note1->setString(6);
 
-    measure1->getDescriptor()->addChild(note1->getDescriptor());
-    measure1->getDescriptor()->addChild(note1->getDescriptor());
-    measure1->getDescriptor()->addChild(note1->getDescriptor());
-    measure1->getDescriptor()->addChild(note1->getDescriptor());
+    Note * note2 = new Note();
+    note2->setStep('F');
+    note2->setOctave(2);
+    note2->setduration(1);
+    note2->setFret(0);
+    note2->setString(6);
 
-    /*
-    <part-list>
-        <score-part id="P0">               <-----------Instrument
-            <part-name>Steel Guitar</part-name>
-            <part-abbreviation>S-Gt</part-abbreviation>
-            <midi-instrument id="P0">
-                <midi-channel>1</midi-channel>
-                <midi-bank>1</midi-bank>
-                <midi-program>26</midi-program>
-                <volume>80</volume>
-                <pan>0</pan>
-            </midi-instrument>
-        </score-part>
-    </part-list>
-    */
-    cout << "Guitars created" << endl << endl;
+    measure1->getDescriptor()->addChild(note1->getDescriptor());
+    measure1->getDescriptor()->addChild(note1->getDescriptor());
+    measure1->getDescriptor()->addChild(note2->getDescriptor());
+    measure1->getDescriptor()->addChild(note2->getDescriptor());
+    measure1->getDescriptor()->addChild(note2->getDescriptor());
+    measure1->getDescriptor()->addChild(note2->getDescriptor());
+
+    Measure * m2 = new Measure(1);
+    m2->getDescriptor()->addChild(note1->getDescriptor());
+    m2->getDescriptor()->addChild(note2->getDescriptor());
+    m2->getDescriptor()->addChild(note2->getDescriptor());
+    m2->getDescriptor()->addChild(note2->getDescriptor());
+    m2->getDescriptor()->addChild(note2->getDescriptor());
+    m2->getDescriptor()->addChild(note1->getDescriptor());
+
+    part->addChild(m2->getDescriptor());
 
     cout << song->toString() << endl << endl;
-
-    cout << "Job's done" << endl << endl;
 
     return 0;
 }

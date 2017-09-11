@@ -6,7 +6,7 @@
 class Measure
 {
     public:
-        Measure();
+        Measure(int number);
         virtual ~Measure();
 
         XMLElement * getDescriptor(){return _descriptor;}

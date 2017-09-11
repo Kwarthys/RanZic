@@ -1,9 +1,9 @@
 #include "Measure.h"
 
-Measure::Measure()
+Measure::Measure(int number)
 {
     _descriptor = new XMLElement("measure");
-    _descriptor->addAttribute("number=\"0\"");
+    _descriptor->addAttribute("number=\"" + std::to_string(number) + "\"");
 
     XMLElement * attr = new XMLElement("attributes");
 
