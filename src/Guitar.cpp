@@ -27,11 +27,8 @@ Guitar::Guitar()
 
     std::string p[6][2] = {{"E","2"}, {"A", "2"} , {"D", "3"} , {"G", "3"} , {"B", "3"}, {"E","4"}};
 
-    std::cout << "Starting deathloop" << std::endl << std::endl;
-
     for(int i = 1; i <= 6 ; i++)
     {
-        std::cout << "In deathloop" << std::endl;
         XMLElement * line = new XMLElement("staff-tuning");
         line->addAttribute(std::string("line=\"" + std::to_string(i) + "\""));
         line->addChild(new XMLElement("tuning-step", p[i-1][0]));

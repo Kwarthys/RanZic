@@ -4,6 +4,7 @@
 #include "PerlinNoise.h"
 #include "Note.h"
 #include "Guitar.h"
+#include "Measure.h"
 
 using namespace std;
 
@@ -34,11 +35,44 @@ int main()
     song->addChild(id);
     song->addChild(partList);
 
-    Guitar guitar = Guitar();
-    Guitar guitar2 = Guitar();
+    Guitar * guitar = new Guitar();
+    Guitar * guitar2 = new Guitar();
 
-    partList->addChild(guitar.getDescriptor());
-    partList->addChild(guitar2.getDescriptor());
+    partList->addChild(guitar->getDescriptor());
+    partList->addChild(guitar2->getDescriptor());
+
+    XMLElement * part = new XMLElement("part");
+    part->addAttribute("id=\"P0\"");
+
+    song->addChild(part);
+
+    Measure * measure1 = new Measure();
+
+    measure1->getDescriptor()->getChildByName("attributes")->addChild(guitar->getStaffDescriptor());
+
+    XMLElement * dir = new XMLElement("direction");
+    dir->addAttribute("directive=\"yes\"");
+    dir->addAttribute("placement=\"above\"");
+
+    XMLElement * dirType = new XMLElement("direction-type");
+    XMLElement * metronome = new XMLElement("metronome");
+    metronome->addAttribute("default=\"40\"");
+    metronome->addAttribute("parentheses=\"yes\"");
+    XMLElement * beatUnit = new XMLElement("beat-unit");
+    beatUnit->setValue("quarter");
+    metronome->addChild(beatUnit);
+    XMLElement * perMin = new XMLElement("per-minute");
+    perMin->setValue("150");
+    metronome->addChild(perMin);
+    dirType->addChild(metronome);
+    dir->addChild(dirType);
+    XMLElement * sound = new XMLElement("sound");
+    sound->setValue("150");
+    dir->addChild(sound);
+
+    measure1->getDescriptor()->addChild(dir);
+
+    part->addChild(measure1->getDescriptor());
 
     /*
     <part-list>
@@ -57,24 +91,9 @@ int main()
     */
     cout << "Guitars created" << endl << endl;
 
-    cout << guitar.getStaffDescriptor()->toString() << endl << endl;
-
     cout << song->toString() << endl << endl;
 
-
-    cout << "creating Note" << endl << endl;
-
-    Note note = Note();
-    note.setduration(2);
-    note.setOctave(2);
-    note.setFret(2);
-    note.setString(6);
-    note.setStep('F');
-
-    cout << "End of Note creation" << endl << endl;
-
-    cout << note.toString() << endl;
-
+    cout << "Job's done" << endl << endl;
 
     return 0;
 }
