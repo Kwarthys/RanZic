@@ -32,6 +32,10 @@ class Note
 
         XMLElement * getDescriptor(){return _descriptor;}
 
+        short getDuration(){return _duration;}
+        short getString(){return _string;}
+        short getFret(){return _fret;}
+
     protected:
 
     private:

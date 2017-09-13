@@ -13,6 +13,7 @@ int main()
 {
     MusicBuilder * factory = new MusicBuilder();
 
+
     std::string idName = "identification", rigthsName = "rights", artistName = "Kwarthys";
     std::string titleName = "movement-title", title = "Try It";
     XMLElement* titre = new XMLElement(titleName);
@@ -70,6 +71,25 @@ int main()
 
     part->addChild(measure1->getDescriptor());
 
+    for(int i = 0; i < 6; i++)
+    {
+        Measure * m = factory->getNewMeasure();
+        bool measureDone = false;
+        short tempCount = 0;
+        while(!measureDone)
+        {
+            Note * n = factory->getRandomNote();
+            if(tempCount + n->getDuration() <= 8)
+            {
+                m->getDescriptor()->addChild(n->getDescriptor());
+                tempCount += n->getDuration();
+            }
+
+            if(tempCount == 8)measureDone = true;
+        }
+        part->addChild(m->getDescriptor());
+    }
+/*
     Note * note1 = new Note();
     note1->setDuration(2);
     note1->setString(6);
@@ -96,8 +116,10 @@ int main()
     m2->getDescriptor()->addChild(note1->getDescriptor());
 
     part->addChild(m2->getDescriptor());
-
+*/
     cout << song->toString() << endl << endl;
+
+
 
     return 0;
 }

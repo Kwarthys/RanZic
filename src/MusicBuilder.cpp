@@ -3,7 +3,10 @@
 MusicBuilder::MusicBuilder()
 {
     this->measureIndex = 0;
+    this->noteIndex = 0;
+    this->rythmeIndex = 0;
     buildGamme();
+    this->noiseGenerator = new PerlinNoise();
 }
 
 MusicBuilder::~MusicBuilder()
@@ -14,6 +17,28 @@ MusicBuilder::~MusicBuilder()
 Measure * MusicBuilder::getNewMeasure()
 {
     return new Measure(measureIndex++);
+}
+
+Note * MusicBuilder::getRandomNote()
+{
+    double noteSeed = (1.0*noteIndex)/5;
+    double rythmeSeed = (rythmeIndex*1.0)/2;
+    double note = this->noiseGenerator->noise(noteSeed, 0 , 0);
+    double rythme = this->noiseGenerator->noise(rythmeSeed, 0 , 0);
+
+    this->noteIndex++;
+    this->rythmeIndex++;
+
+    int gameIndex = (int)(note*this->MAX_NOTE_NUMBER);
+
+    Note * toReturn = new Note();
+    toReturn->setFret(this->gamme[gameIndex].getFret());
+    toReturn->setString(this->gamme[gameIndex].getString());
+    toReturn->setDuration(rythme > 0.5 ? 2 : 1);
+
+    std::cout << gameIndex << std::endl;
+
+    return toReturn;
 }
 
 void MusicBuilder::buildGamme()
