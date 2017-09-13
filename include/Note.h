@@ -24,11 +24,9 @@ class Note
         Note();
         virtual ~Note();
 
-        void setStep(char c);
-        void setOctave(short s);
-        void setduration(short s);
-        void setString(short s);
         void setFret(short s);
+        void setDuration(short s);
+        void setString(short s);
 
         std::string toString(){return _descriptor->toString();}
 
@@ -37,10 +35,7 @@ class Note
     protected:
 
     private:
-        char _step;
-        short _octave;
-        short _duration;
-        short _string, _fret;
+        short _duration, _string, _fret;
 
         XMLElement * _descriptor;
 };

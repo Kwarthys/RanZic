@@ -5,11 +5,14 @@
 #include "Note.h"
 #include "Guitar.h"
 #include "Measure.h"
+#include "MusicBuilder.h"
 
 using namespace std;
 
 int main()
 {
+    MusicBuilder * factory = new MusicBuilder();
+
     std::string idName = "identification", rigthsName = "rights", artistName = "Kwarthys";
     std::string titleName = "movement-title", title = "Try It";
     XMLElement* titre = new XMLElement(titleName);
@@ -39,7 +42,7 @@ int main()
 
     song->addChild(part);
 
-    Measure * measure1 = new Measure(0);
+    Measure * measure1 = factory->getNewMeasure();
 
     measure1->getDescriptor()->getChildByName("attributes")->addChild(guitar->getStaffDescriptor());
 
@@ -68,18 +71,14 @@ int main()
     part->addChild(measure1->getDescriptor());
 
     Note * note1 = new Note();
-    note1->setStep('F');
-    note1->setOctave(2);
-    note1->setduration(2);
-    note1->setFret(1);
+    note1->setDuration(2);
     note1->setString(6);
+    note1->setFret(2);
 
     Note * note2 = new Note();
-    note2->setStep('F');
-    note2->setOctave(2);
-    note2->setduration(1);
-    note2->setFret(0);
+    note2->setDuration(1);
     note2->setString(6);
+    note2->setFret(0);
 
     measure1->getDescriptor()->addChild(note1->getDescriptor());
     measure1->getDescriptor()->addChild(note1->getDescriptor());
@@ -88,7 +87,7 @@ int main()
     measure1->getDescriptor()->addChild(note2->getDescriptor());
     measure1->getDescriptor()->addChild(note2->getDescriptor());
 
-    Measure * m2 = new Measure(1);
+    Measure * m2 = factory->getNewMeasure();
     m2->getDescriptor()->addChild(note1->getDescriptor());
     m2->getDescriptor()->addChild(note2->getDescriptor());
     m2->getDescriptor()->addChild(note2->getDescriptor());

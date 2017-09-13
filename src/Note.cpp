@@ -4,64 +4,67 @@
 Note::Note()
 {
     //ctor
-    std::string note = "note", pitchName = "pitch", notationName = "notations", techName = "technical";
+    std::string note = "note", pitchName = "pitch";
     _descriptor = new XMLElement(note);
     XMLElement * pitch = new XMLElement(pitchName);
-    XMLElement * notations = new XMLElement(notationName);
-    XMLElement * technical = new XMLElement(techName);
+    XMLElement * step = new XMLElement("step", "E");
+    XMLElement * octave = new XMLElement("octave", "2");
+
+    pitch->addChild(step);
+    pitch->addChild(octave);
+
+    XMLElement * notations = new XMLElement("notations");
+    XMLElement * technical = new XMLElement("technical");
+
+    notations->addChild(technical);
 
     _descriptor->addChild(pitch);
     _descriptor->addChild(notations);
-    notations->addChild(technical);
 }
 
-void Note::setStep(char c)
+void Note::setFret(short f)
 {
-    _step = c;
-    std::string stepName = "step", pitchName = "pitch", stepString = std::string(1,c);
-    XMLElement * step = new XMLElement(stepName);
-    step->setValue(stepString);
-    _descriptor->getChildByName(pitchName)->addChild(step);
+    if(_fret == f)return;
+    else
+    {
+        if(_descriptor->getChildByName("fret") != nullptr)
+        {
+            _descriptor->getChildByName("fret")->setValue(std::to_string(f));
+        }
+        else
+        {
+            _fret = f;
+            XMLElement * fret = new XMLElement("fret", std::to_string(f));
+            _descriptor->getChildByName("technical")->addChild(fret);
+        }
+    }
 }
 
-void Note::setOctave(short s)
+void Note::setString(short s)
 {
-    _octave = s;
-    std::string octaveName = "octave", pitchName = "pitch", octaveValue = std::to_string(s);
-    XMLElement * octave = new XMLElement(octaveName);
-    octave->setValue(octaveValue);
-    _descriptor->getChildByName(pitchName)->addChild(octave);
+    if(_string == s)return;
+    else
+    {
+        if(_descriptor->getChildByName("string") != nullptr)
+        {
+            _descriptor->getChildByName("string")->setValue(std::to_string(s));
+        }
+        else
+        {
+            _string = s;
+            XMLElement * str = new XMLElement("string", std::to_string(s));
+            _descriptor->getChildByName("technical")->addChild(str);
+        }
+    }
 }
 
-void Note::setduration(short s)
+void Note::setDuration(short s)
 {
     _duration = s;
     std::string durationName = "duration", durationValue = std::to_string(s);
     XMLElement * duration = new XMLElement(durationName);
     duration->setValue(durationValue);
     _descriptor->addChild(duration);
-}
-
-void Note::setString(short s)
-{
-    _string = s;
-    std::string stringName = "string", technicalName = "technical", stringValue = std::to_string(s);
-    XMLElement * guitarString = new XMLElement(stringName);
-    guitarString->setValue(stringValue);
-    //_descriptor->getChildByName(technicalName)->addChild(*guitarString);
-    if(_descriptor->getChildByName(technicalName) != nullptr) _descriptor->getChildByName(technicalName)->addChild(guitarString);
-    else std::cout << "can't find that child" << std::endl;
-}
-
-void Note::setFret(short s)
-{
-    _fret = s;
-    std::string fretName = "fret", technicalName = "technical", fretValue = std::to_string(s);
-    XMLElement * fret = new XMLElement(fretName);
-    fret->setValue(fretValue);
-    //_descriptor->getChildByName(technicalName)->addChild(*fret);
-    if(_descriptor->getChildByName(technicalName) != nullptr) _descriptor->getChildByName(technicalName)->addChild(fret);
-    else std::cout << "can't find that child" << std::endl;
 }
 
 Note::~Note()
