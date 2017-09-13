@@ -12,11 +12,11 @@ class MusicBuilder
 
         Measure * getNewMeasure();
 
-        int MAX_NOTE_NUMBER;
+        const static int MAX_NOTE_NUMBER = 16;   /*** 16 Notes ***/
 
     protected:
         int measureIndex;
-        Note gamme[];
+        Note gamme[MAX_NOTE_NUMBER];
 
     private:
         void buildGamme();
