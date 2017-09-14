@@ -25,6 +25,8 @@ class MusicBuilder
         Note gamme[MAX_NOTE_NUMBER];
         PerlinNoise * noiseGenerator;
 
+        double generalSeed;
+
     private:
         void buildGamme();
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "XMLElement.h"
 #include "PerlinNoise.h"
@@ -71,7 +72,7 @@ int main()
 
     part->addChild(measure1->getDescriptor());
 
-    for(int i = 0; i < 6; i++)
+    for(int i = 0; i < 12; i++)
     {
         Measure * m = factory->getNewMeasure();
         bool measureDone = false;
@@ -119,7 +120,27 @@ int main()
 */
     cout << song->toString() << endl << endl;
 
+    ofstream xmlOutputFile;
+    xmlOutputFile.open ("generated.xml");
+    xmlOutputFile << song->toString();
+    xmlOutputFile.close();
 
+    /*
+    PerlinNoise p = PerlinNoise();
+
+    double min = 1;
+    double max = 0;
+
+    for(int x = 0; x < 100; x++)
+    {
+        double noise = p.noise(x*0.1,0,0)*2 - 0.5;
+        if(min > noise) min = noise;
+        if(max < noise) max = noise;
+        cout << 0.1*x << ":" << noise << " | ";
+    }
+
+    cout << endl << "min " << min << "| max " << max << endl;
+*/
 
     return 0;
 }
